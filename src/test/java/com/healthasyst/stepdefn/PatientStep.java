@@ -73,7 +73,7 @@ public class PatientStep {
 	}
 	@Then("I should get the added patient name {string}")
 	public void i_should_get_the_added_patient_name(String string) {
-	    
+	    WebDriverWrapper.driver.quit();
 	    
 	}
 
