@@ -20,28 +20,40 @@ import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class LoginStep {
+	
+	WebDriverWrapper wrapper;
+	LoginPage login;
+	MainPage main;
+	
+	public LoginStep(WebDriverWrapper wrapper)
+	{
+		this.wrapper=wrapper;
+	}
 
 //	@Given("I open browser with OpenEMR page")
 	@Given("I have browser with OpenEMR page")
 	public void i_have_browser_with_open_emr_page() {
 
-		WebDriverManager.chromedriver().setup();
-		WebDriverManager.firefoxdriver().setup();
-
-		WebDriverWrapper.driver = new ChromeDriver();
-		WebDriverWrapper.driver.manage().window().maximize();
-		WebDriverWrapper.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-		WebDriverWrapper.driver.get("https://demo.openemr.io/b/openemr");
+		this.wrapper.launchBrowser("ch");
+		intializePage();
+	}
+	
+	public void intializePage()
+	{
+		 login=new LoginPage(this.wrapper.driver);
+		 main=new MainPage(this.wrapper.driver);
 	}
 
 	@When("I enter username as {string}")
 	public void i_enter_username_as(String username) {
-		LoginPage.enterUsername(username);
+		
+		login.enterUsername(username);
 	}
 
 	@When("I enter password as {string}")
 	public void i_enter_password_as(String password) {
-		LoginPage.enterPassword(password);
+		
+		login.enterPassword(password);
 	}
 
 	@When("I select language as {string}")
@@ -51,21 +63,21 @@ public class LoginStep {
 
 	@When("I click on login")
 	public void i_click_on_login() {
-		LoginPage.clickOnLogin();
+		login.clickOnLogin();
 	}
 
 	@Then("I should get access to portal with title as {string}")
 	public void i_should_get_access_to_portal_with_title_as(String expectedTitle) {
 		//wait for page load
-		MainPage.waitForPresenceOfMessages();
-		String actualTitle = MainPage.getMainPageTitle();
+		main.waitForPresenceOfMessages();
+		String actualTitle = main.getMainPageTitle();
 		Assert.assertEquals(expectedTitle, actualTitle);
 	}
 
 	@Then("I should get the error as {string}")
 	public void i_should_get_the_error_as(String expectedError) {
 
-		String actualError = LoginPage.getInvalidErrorMessage();
+		String actualError = login.getInvalidErrorMessage();
 
 		Assert.assertEquals(expectedError, actualError);
 	}

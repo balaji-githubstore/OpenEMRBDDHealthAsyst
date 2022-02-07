@@ -3,6 +3,7 @@ package com.healthasyst.pages;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -10,32 +11,39 @@ import com.healthasyst.base.WebDriverWrapper;
 
 public class MainPage {
 	//automate all menu
-	private static By messagesLocator=By.xpath("//*[text()='Messages']");
-	private static By patientClientLocator=By.xpath("//div[text()='Patient/Client']");
-	private static By patientsLocator=By.xpath("//div[text()='Patients']");
+	private  By messagesLocator=By.xpath("//*[text()='Messages']");
+	private  By patientClientLocator=By.xpath("//div[text()='Patient/Client']");
+	private  By patientsLocator=By.xpath("//div[text()='Patients']");
 	
-	public static void waitForPresenceOfMessages()
+	private WebDriver driver;
+	
+	public MainPage(WebDriver driver)
 	{
-		WebDriverWait wait=new WebDriverWait(WebDriverWrapper.driver, Duration.ofSeconds(50));	
+		this.driver=driver;
+	}
+
+	
+	public  void waitForPresenceOfMessages()
+	{
+		WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(50));	
 		wait.until(ExpectedConditions.presenceOfElementLocated(messagesLocator));
 	}
 	
-	public static String getMainPageTitle()
+	public  String getMainPageTitle()
 	{
-		return  WebDriverWrapper.driver.getTitle().trim();
+		return driver.getTitle().trim();
 	}
 	
-	public static void clickOnMessages()
+	public  void clickOnMessages()
 	{
-		WebDriverWrapper.driver.findElement(messagesLocator).click();
+		driver.findElement(messagesLocator).click();
 	}
 	
-	public static void clickOnPatientClient()
+	public  void clickOnPatientClient()
 	{
-		WebDriverWrapper.driver.findElement(patientClientLocator).click();
+		driver.findElement(patientClientLocator).click();
 	}
-	public static void clickOnPatients()
+	public  void clickOnPatients()
 	{
-		WebDriverWrapper.driver.findElement(patientsLocator).click();
 	}
 }

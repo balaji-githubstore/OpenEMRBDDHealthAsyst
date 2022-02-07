@@ -11,8 +11,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.healthasyst.base.WebDriverWrapper;
+import com.healthasyst.pages.LoginPage;
 import com.healthasyst.pages.MainPage;
 import com.healthasyst.pages.PatienFinderPage;
+import com.healthasyst.pages.SearchOrAddPatientPage;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,21 +23,38 @@ import io.cucumber.java.en.When;
 public class PatientStep {
 	
 	private static String acutalAlertText;
+	WebDriverWrapper wrapper;
+	MainPage main;
+	PatienFinderPage finderPage;
+	SearchOrAddPatientPage searchPatient;
+	
+	public PatientStep(WebDriverWrapper wrapper)
+	{
+		this.wrapper=wrapper;
+		intializePage();
+	}
+	
+	public void intializePage()
+	{
+		 main=new MainPage(this.wrapper.driver);
+		 finderPage=new PatienFinderPage(this.wrapper.driver);
+		 searchPatient=new SearchOrAddPatientPage(this.wrapper.driver);
+	}
 
 	@When("I click on patient-client")
 	public void i_click_on_patient_client() {
 
-		MainPage.clickOnPatientClient();
+		main.clickOnPatientClient();
 	}
 
 	@When("I click on patient")
 	public void i_click_on_patient() {
-		MainPage.clickOnPatients();
+		main.clickOnPatients();
 	}
 
 	@When("I click on Add New Patient")
 	public void i_click_on_add_new_patient() {
-		PatienFinderPage.clickOnAddNewPatient();
+		finderPage.clickOnAddNewPatient();
 	}
 
 	@When("I fill the form")
@@ -56,37 +75,37 @@ public class PatientStep {
 		System.out.println(lists.get(0).get("dob"));
 		System.out.println(lists.get(0).get("gender"));
 
-		WebDriverWrapper.driver.switchTo()
-				.frame(WebDriverWrapper.driver.findElement(By.xpath("//iframe[@name='pat']")));
+		this.wrapper.driver.switchTo()
+				.frame(wrapper.driver.findElement(By.xpath("//iframe[@name='pat']")));
 
-		WebDriverWrapper.driver.findElement(By.xpath("//input[@id='form_fname']"))
+		wrapper.driver.findElement(By.xpath("//input[@id='form_fname']"))
 				.sendKeys(lists.get(0).get("firstname"));
-		WebDriverWrapper.driver.findElement(By.xpath("//input[@id='form_lname']"))
+		wrapper.driver.findElement(By.xpath("//input[@id='form_lname']"))
 				.sendKeys(lists.get(0).get("lastname"));
-		WebDriverWrapper.driver.findElement(By.xpath("//input[@id='form_DOB']")).sendKeys(lists.get(0).get("dob"));
+		wrapper.driver.findElement(By.xpath("//input[@id='form_DOB']")).sendKeys(lists.get(0).get("dob"));
 
-		Select genderSel = new Select(WebDriverWrapper.driver.findElement(By.xpath("//select[@id='form_sex']")));
+		Select genderSel = new Select(wrapper.driver.findElement(By.xpath("//select[@id='form_sex']")));
 		genderSel.selectByVisibleText(lists.get(0).get("gender"));
 
 	}
 
 	@When("I click on create new patient")
 	public void i_click_on_create_new_patient() {
-		WebDriverWrapper.driver.findElement(By.xpath("//button[@id='create']")).click();
+		wrapper.driver.findElement(By.xpath("//button[@id='create']")).click();
 
-		WebDriverWrapper.driver.switchTo().defaultContent();
+		wrapper.driver.switchTo().defaultContent();
 	}
 
 	@When("I click on confirm create new patient")
 	public void i_click_on_confirm_create_new_patient() throws InterruptedException {
-		WebDriverWrapper.driver.switchTo()
-				.frame(WebDriverWrapper.driver.findElement(By.xpath("//iframe[@id='modalframe']")));
+		wrapper.driver.switchTo()
+				.frame(wrapper.driver.findElement(By.xpath("//iframe[@id='modalframe']")));
 
 		Thread.sleep(2000);
 		
-		WebDriverWrapper.driver.findElement(By.xpath("//input[@value='Confirm Create New Patient']")).click();
+		wrapper.driver.findElement(By.xpath("//input[@value='Confirm Create New Patient']")).click();
 
-		WebDriverWrapper.driver.switchTo().defaultContent();
+		wrapper.driver.switchTo().defaultContent();
 
 	}
 
@@ -94,21 +113,21 @@ public class PatientStep {
 	public void i_store_the_text_and_handle_the_alert_box() {
 		
 		
-		WebDriverWait wait=new WebDriverWait(WebDriverWrapper.driver, Duration.ofSeconds(50));	
+		WebDriverWait wait=new WebDriverWait(wrapper.driver, Duration.ofSeconds(50));	
 		wait.until(ExpectedConditions.alertIsPresent());
 		
 		
-		acutalAlertText=WebDriverWrapper.driver.switchTo().alert().getText();
-		WebDriverWrapper.driver.switchTo().alert().accept();
+		acutalAlertText=wrapper.driver.switchTo().alert().getText();
+		wrapper.driver.switchTo().alert().accept();
 		
 	}
 
 	@When("I click on happy birthday if available")
 	public void i_click_on_happy_birthday_if_available() {
 		
-		if(WebDriverWrapper.driver.findElements(By.xpath("//div[@class='closeDlgIframe']")).size()>0)
+		if(wrapper.driver.findElements(By.xpath("//div[@class='closeDlgIframe']")).size()>0)
 		{
-			WebDriverWrapper.driver.findElement(By.xpath("//div[@class='closeDlgIframe']")).click();
+			wrapper.driver.findElement(By.xpath("//div[@class='closeDlgIframe']")).click();
 		}
 	}
 
@@ -121,16 +140,16 @@ public class PatientStep {
 	@Then("I should get the added patient name {string}")
 	public void i_should_get_the_added_patient_name(String expectedName) {
 		
-		WebDriverWrapper.driver.switchTo()
-		.frame(WebDriverWrapper.driver.findElement(By.xpath("//iframe[@name='pat']")));
+		wrapper.driver.switchTo()
+		.frame(wrapper.driver.findElement(By.xpath("//iframe[@name='pat']")));
 		
-		String actualPatientName= WebDriverWrapper.driver.findElement(By.xpath("//h2[contains(text(),'Medical Record Dashboard')]")).getText();
+		String actualPatientName= wrapper.driver.findElement(By.xpath("//h2[contains(text(),'Medical Record Dashboard')]")).getText();
 		
 		Assert.assertEquals(expectedName, actualPatientName.trim());
 		
 //		Assert.assertTrue(actualPatientName.contains(expectedName));
 		
-		WebDriverWrapper.driver.switchTo().defaultContent();
+		wrapper.driver.switchTo().defaultContent();
 		
 	}
 

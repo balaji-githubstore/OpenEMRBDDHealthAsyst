@@ -1,18 +1,25 @@
 package com.healthasyst.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 import com.healthasyst.base.WebDriverWrapper;
 
 public class PatienFinderPage {
-	private static By finFrameLocator = By.xpath("//iframe[@name='fin']");
-	private static By addNewPatientLocator = By.xpath("//button[@id='create_patient_btn1']");
+	private By finFrameLocator = By.xpath("//iframe[@name='fin']");
+	private By addNewPatientLocator = By.xpath("//button[@id='create_patient_btn1']");
 
-	public static void clickOnAddNewPatient() {
-		WebDriverWrapper.driver.switchTo().frame(WebDriverWrapper.driver.findElement(finFrameLocator));
+	private WebDriver driver;
 
-		WebDriverWrapper.driver.findElement(addNewPatientLocator).click();
-		WebDriverWrapper.driver.switchTo().defaultContent();
+	public PatienFinderPage(WebDriver driver) {
+		this.driver = driver;
+	}
+
+	public void clickOnAddNewPatient() {
+		driver.switchTo().frame(driver.findElement(finFrameLocator));
+
+		driver.findElement(addNewPatientLocator).click();
+		driver.switchTo().defaultContent();
 	}
 
 }
