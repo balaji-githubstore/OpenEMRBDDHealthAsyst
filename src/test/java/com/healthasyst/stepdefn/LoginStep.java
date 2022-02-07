@@ -36,6 +36,8 @@ public class LoginStep {
 
 		this.wrapper.launchBrowser("ch");
 		intializePage();
+		
+		WebDriverWrapper.scenario.log("Browser launched successfully");
 	}
 	
 	public void intializePage()
