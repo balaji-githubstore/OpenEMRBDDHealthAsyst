@@ -16,11 +16,8 @@ public class GCheck {
 	public static void main(String[] args) throws MalformedURLException {
 		
 		ChromeOptions opt=new ChromeOptions();
-//		SafariOptions opt=new SafariOptions();
-		WebDriverManager.safaridriver().setup();
-		DesiredCapabilities cap=new DesiredCapabilities();
-		cap.setBrowserName("safari");
-		RemoteWebDriver driver=new RemoteWebDriver(new URL("http://192.168.1.6:7777"), cap);
+
+		WebDriver driver=new RemoteWebDriver(new URL("http://192.168.1.5:9091"), opt);
 
 		driver.get("http://google.com");
 	}

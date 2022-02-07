@@ -1,5 +1,6 @@
 package com.healthasyst.stepdefn;
 
+import java.net.MalformedURLException;
 import java.time.Duration;
 
 import org.junit.Assert;
@@ -32,9 +33,9 @@ public class LoginStep {
 
 //	@Given("I open browser with OpenEMR page")
 	@Given("I have browser with OpenEMR page")
-	public void i_have_browser_with_open_emr_page() {
+	public void i_have_browser_with_open_emr_page() throws MalformedURLException {
 
-		this.wrapper.launchBrowser("ch");
+		this.wrapper.launchBrowser("ch","");
 		intializePage();
 		
 		WebDriverWrapper.scenario.log("Browser launched successfully");

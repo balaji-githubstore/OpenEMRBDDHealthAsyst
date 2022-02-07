@@ -45,5 +45,6 @@ public class MainPage {
 	}
 	public  void clickOnPatients()
 	{
+		driver.findElement(patientsLocator).click();
 	}
 }

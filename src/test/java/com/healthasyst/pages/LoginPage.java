@@ -3,9 +3,10 @@ package com.healthasyst.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import com.healthasyst.base.WebDriverKeywords;
 import com.healthasyst.base.WebDriverWrapper;
 
-public class LoginPage {
+public class LoginPage extends WebDriverKeywords {
 	private By usernameLocator = By.id("authUser");
 	private By passwordLocator = By.id("clearPass");
 	private By loginLocator = By.cssSelector("[type='submit']");
@@ -15,20 +16,21 @@ public class LoginPage {
 	private WebDriver driver;
 	public LoginPage(WebDriver driver)
 	{
+		super(driver);
 		this.driver=driver;
 	}
 
 
 	public void enterUsername(String username) {
-		driver.findElement(usernameLocator).sendKeys(username);
+		typeOnElement(usernameLocator,username);
 	}
 
 	public void enterPassword(String password) {
-		driver.findElement(passwordLocator).sendKeys(password);
+		typeOnElement(passwordLocator,password);
 	}
 
 	public void clickOnLogin() {
-		driver.findElement(loginLocator).click();
+		clickElement(loginLocator);
 	}
 
 	public String getInvalidErrorMessage() {
