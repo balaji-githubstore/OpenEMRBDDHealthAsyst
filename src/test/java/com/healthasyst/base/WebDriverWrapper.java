@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -24,7 +25,11 @@ public class WebDriverWrapper {
 			driver = new FirefoxDriver();
 		} else {
 			WebDriverManager.chromedriver().setup();
-			driver = new ChromeDriver();
+			
+			ChromeOptions opt=new ChromeOptions();
+			opt.addArguments("--headless");
+			
+			driver = new ChromeDriver(opt);
 		}
 
 		driver.manage().window().maximize();
