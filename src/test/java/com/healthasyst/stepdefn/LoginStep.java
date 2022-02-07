@@ -41,7 +41,7 @@ public class LoginStep {
 	public void intializePage()
 	{
 		 login=new LoginPage(this.wrapper.driver);
-		 main=new MainPage(this.wrapper.driver);
+		 main=new MainPage(wrapper.driver);
 	}
 
 	@When("I enter username as {string}")
