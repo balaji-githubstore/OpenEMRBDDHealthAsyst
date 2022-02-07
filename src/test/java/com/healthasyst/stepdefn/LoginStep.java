@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.healthasyst.base.WebDriverWrapper;
+import com.healthasyst.pages.LoginPage;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -32,7 +33,7 @@ public class LoginStep {
 	@When("I enter username as {string}")
 	public void i_enter_username_as(String username) {
 		
-		WebDriverWrapper.driver.findElement(By.id("authUser")).sendKeys(username);
+		LoginPage.enterUsername(username);
 	}
 
 	@When("I enter password as {string}")
