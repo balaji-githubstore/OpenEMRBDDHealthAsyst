@@ -28,3 +28,4 @@ Feature: Patient
       | username | password | firstname | lastname | dob        | gender | expectedAlert | expectedName                         |
       | admin    | pass     | john      | wick     | 2022-02-05 | Male   | Tobacco       | Medical Record Dashboard - John Wick |
       | admin    | pass     | peter     | ken      | 2022-02-07 | Male   | Tobacco       | Medical Record Dashboard - Peter Ken |
+

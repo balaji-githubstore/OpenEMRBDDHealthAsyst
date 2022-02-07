@@ -13,7 +13,10 @@ import io.cucumber.junit.CucumberOptions;
 		,monochrome = true
 //		,dryRun = true 
 //		,tags = "@login and (not @high)"
-		,tags="@patient"
+//		,tags="@patient"
+		,tags="@invalid"
+//		,plugin = {"pretty","progress"} 
+		,plugin = {"pretty","html:target/index.html"} 
 		)
 
 @RunWith(Cucumber.class)
