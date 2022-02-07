@@ -14,7 +14,7 @@ import io.cucumber.junit.CucumberOptions;
 //		,dryRun = true 
 //		,tags = "@login and (not @high)"
 //		,tags="@patient"
-		,tags="@invalid"
+		,tags="@login"
 //		,plugin = {"pretty","progress"} 
 //		,plugin = {"pretty","html:target/index.html","json:target/cucumber-report.json"} 
 		
