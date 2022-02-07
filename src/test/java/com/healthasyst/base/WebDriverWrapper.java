@@ -36,6 +36,7 @@ public class WebDriverWrapper {
 	@After
 
 	public void endScenario() {
+		//checking null
 		if(driver !=null)
 		{
 			driver.quit();
