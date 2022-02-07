@@ -65,10 +65,10 @@ public class PatientStep {
 				.sendKeys(lists.get(0).get("firstname"));
 		WebDriverWrapper.driver.findElement(By.xpath("//input[@id='form_lname']"))
 				.sendKeys(lists.get(0).get("lastname"));
-		WebDriverWrapper.driver.findElement(By.xpath("//input[@id='form_fname']")).sendKeys(lists.get(0).get("dob"));
+		WebDriverWrapper.driver.findElement(By.xpath("//input[@id='form_DOB']")).sendKeys(lists.get(0).get("dob"));
 
-		Select genderSel = new Select(WebDriverWrapper.driver.findElement(By.xpath("//input[@id='form_sex']")));
-		genderSel.deselectByVisibleText(lists.get(0).get("gender"));
+		Select genderSel = new Select(WebDriverWrapper.driver.findElement(By.xpath("//select[@id='form_sex']")));
+		genderSel.selectByVisibleText(lists.get(0).get("gender"));
 
 	}
 
@@ -80,10 +80,12 @@ public class PatientStep {
 	}
 
 	@When("I click on confirm create new patient")
-	public void i_click_on_confirm_create_new_patient() {
+	public void i_click_on_confirm_create_new_patient() throws InterruptedException {
 		WebDriverWrapper.driver.switchTo()
 				.frame(WebDriverWrapper.driver.findElement(By.xpath("//iframe[@id='modalframe']")));
 
+		Thread.sleep(2000);
+		
 		WebDriverWrapper.driver.findElement(By.xpath("//input[@value='Confirm Create New Patient']")).click();
 
 		WebDriverWrapper.driver.switchTo().defaultContent();
@@ -126,11 +128,12 @@ public class PatientStep {
 		
 		String actualPatientName= WebDriverWrapper.driver.findElement(By.xpath("//h2[contains(text(),'Medical Record Dashboard')]")).getText();
 		
-		Assert.assertEquals(expectedName, actualPatientName);
+		Assert.assertEquals(expectedName, actualPatientName.trim());
+		
+//		Assert.assertTrue(actualPatientName.contains(expectedName));
 		
 		WebDriverWrapper.driver.switchTo().defaultContent();
 		
-		WebDriverWrapper.driver.quit();
 	}
 
 }
