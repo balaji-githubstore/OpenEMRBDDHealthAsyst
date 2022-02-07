@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.healthasyst.base.WebDriverWrapper;
+import com.healthasyst.pages.MainPage;
+import com.healthasyst.pages.PatienFinderPage;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -23,21 +25,17 @@ public class PatientStep {
 	@When("I click on patient-client")
 	public void i_click_on_patient_client() {
 
-		WebDriverWrapper.driver.findElement(By.xpath("//div[text()='Patient/Client']")).click();
+		MainPage.clickOnPatientClient();
 	}
 
 	@When("I click on patient")
 	public void i_click_on_patient() {
-		WebDriverWrapper.driver.findElement(By.xpath("//div[text()='Patients']")).click();
-
+		MainPage.clickOnPatients();
 	}
 
 	@When("I click on Add New Patient")
 	public void i_click_on_add_new_patient() {
-		WebDriverWrapper.driver.switchTo()
-				.frame(WebDriverWrapper.driver.findElement(By.xpath("//iframe[@name='fin']")));
-		WebDriverWrapper.driver.findElement(By.xpath("//button[@id='create_patient_btn1']")).click();
-		WebDriverWrapper.driver.switchTo().defaultContent();
+		PatienFinderPage.clickOnAddNewPatient();
 	}
 
 	@When("I fill the form")
