@@ -16,7 +16,7 @@ Feature: Login
     Then I should get the error as 'Invalid username or password'
 
   @valid
-  Scenario: Valid Credential
+  Scenario Outline: Valid Credential
     When I enter username as '<username>'
     And I enter password as '<password>'
     And I select language as '<language>'

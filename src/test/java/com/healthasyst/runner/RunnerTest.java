@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 
 @CucumberOptions(
 		features = {"src/test/resources/feature"}
-		,glue = {"com.healthasyst.stepdefn"}
+		,glue = {"com.healthasyst.stepdefn","com.healthasyst.base"}
 		,publish = true
 		,monochrome = true
 //		,dryRun = true 
