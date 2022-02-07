@@ -7,9 +7,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.healthasyst.base.WebDriverKeywords;
 import com.healthasyst.base.WebDriverWrapper;
 
-public class MainPage {
+public class MainPage extends WebDriverKeywords {
 	//automate all menu
 	private  By messagesLocator=By.xpath("//*[text()='Messages']");
 	private  By patientClientLocator=By.xpath("//div[text()='Patient/Client']");
@@ -19,6 +20,7 @@ public class MainPage {
 	
 	public MainPage(WebDriver driver)
 	{
+		super(driver);
 		this.driver=driver;
 	}
 
@@ -36,15 +38,15 @@ public class MainPage {
 	
 	public  void clickOnMessages()
 	{
-		driver.findElement(messagesLocator).click();
+		clickElement(messagesLocator);
 	}
 	
 	public  void clickOnPatientClient()
 	{
-		driver.findElement(patientClientLocator).click();
+		clickElement(patientClientLocator);
 	}
 	public  void clickOnPatients()
 	{
-		driver.findElement(patientsLocator).click();
+		clickElement(patientsLocator);
 	}
 }
