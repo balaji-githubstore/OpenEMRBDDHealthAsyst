@@ -62,10 +62,10 @@ public class WebDriverWrapper {
 			} else {
 				WebDriverManager.chromedriver().setup();
 
-				ChromeOptions opt = new ChromeOptions();
-				opt.addArguments("--headless");
+//				ChromeOptions opt = new ChromeOptions();
+//				opt.addArguments("--headless");
 
-				driver = new ChromeDriver(opt);
+				driver = new ChromeDriver();
 			}
 		}
 		

@@ -10,8 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.healthasyst.base.MyVariableClass;
 import com.healthasyst.base.WebDriverWrapper;
-import com.healthasyst.pages.LoginPage;
 import com.healthasyst.pages.MainPage;
 import com.healthasyst.pages.PatienFinderPage;
 import com.healthasyst.pages.SearchOrAddPatientPage;
@@ -27,15 +27,19 @@ public class PatientStep {
 	MainPage main;
 	PatienFinderPage finderPage;
 	SearchOrAddPatientPage searchPatient;
+	MyVariableClass my;
 	
-	public PatientStep(WebDriverWrapper wrapper)
+	public PatientStep(WebDriverWrapper wrapper,MyVariableClass my)
 	{
 		this.wrapper=wrapper;
 		intializePage();
+
+		
 	}
 	
 	public void intializePage()
 	{
+
 		 main=new MainPage(this.wrapper.driver);
 		 finderPage=new PatienFinderPage(this.wrapper.driver);
 		 searchPatient=new SearchOrAddPatientPage(this.wrapper.driver);
@@ -145,7 +149,7 @@ public class PatientStep {
 		
 		String actualPatientName= wrapper.driver.findElement(By.xpath("//h2[contains(text(),'Medical Record Dashboard')]")).getText();
 		
-		Assert.assertEquals(expectedName, actualPatientName.trim());
+		Assert.assertEquals(expectedName, actualPatientName.trim(),"usename used is"+my.login_data);
 		
 //		Assert.assertTrue(actualPatientName.contains(expectedName));
 		
